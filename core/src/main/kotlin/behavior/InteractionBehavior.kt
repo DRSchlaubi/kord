@@ -52,42 +52,42 @@ interface InteractionBehavior : KordEntity, Strategizable {
 
 
     override fun withStrategy(strategy: EntitySupplyStrategy<*>): InteractionBehavior =
-        InteractionBehavior(id, guildId, channelId, token, applicationId, kord, strategy)
+            InteractionBehavior(id, guildId, channelId, token, applicationId, kord, strategy)
 
     companion object {
 
         operator fun invoke(
-            id: Snowflake,
-            guildId: Snowflake,
-            channelId: Snowflake,
-            token: String,
-            applicationId: Snowflake,
-            kord: Kord,
-            strategy: EntitySupplyStrategy<*> = kord.resources.defaultStrategy
+                id: Snowflake,
+                guildId: Snowflake,
+                channelId: Snowflake,
+                token: String,
+                applicationId: Snowflake,
+                kord: Kord,
+                strategy: EntitySupplyStrategy<*> = kord.resources.defaultStrategy
         ) =
-            object : InteractionBehavior {
-                override val id: Snowflake
-                    get() = id
+                object : InteractionBehavior {
+                    override val id: Snowflake
+                        get() = id
 
-                override val token: String
-                    get() = token
+                    override val token: String
+                        get() = token
 
-                override val applicationId: Snowflake
-                    get() = applicationId
+                    override val applicationId: Snowflake
+                        get() = applicationId
 
-                override val kord: Kord
-                    get() = kord
+                    override val kord: Kord
+                        get() = kord
 
-                override val channelId: Snowflake
-                    get() = channelId
+                    override val channelId: Snowflake
+                        get() = channelId
 
-                override val guildId: Snowflake
-                    get() = guildId
+                    override val guildId: Snowflake
+                        get() = guildId
 
-                override val supplier: EntitySupplier
-                    get() = strategy.supply(kord)
+                    override val supplier: EntitySupplier
+                        get() = strategy.supply(kord)
 
-            }
+                }
     }
 }
 
@@ -101,8 +101,8 @@ interface InteractionBehavior : KordEntity, Strategizable {
 @KordPreview
 @OptIn(ExperimentalContracts::class)
 suspend inline fun InteractionBehavior.respond(
-    source: Boolean = false,
-    builder: InteractionApplicationCommandCallbackDataBuilder.() -> Unit = {}
+        source: Boolean = false,
+        builder: InteractionApplicationCommandCallbackDataBuilder.() -> Unit = {}
 ): InteractionResponseBehavior {
     contract { callsInPlace(builder, InvocationKind.EXACTLY_ONCE) }
     val type = if (source) InteractionResponseType.ChannelMessageWithSource

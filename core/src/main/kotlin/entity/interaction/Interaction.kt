@@ -33,10 +33,10 @@ import dev.kord.core.supplier.EntitySupplier
  */
 @KordPreview
 class Interaction(
-    val data: InteractionData,
-    override val applicationId: Snowflake,
-    override val kord: Kord,
-    override val supplier: EntitySupplier = kord.defaultSupplier,
+        val data: InteractionData,
+        override val applicationId: Snowflake,
+        override val kord: Kord,
+        override val supplier: EntitySupplier = kord.defaultSupplier,
 ) : InteractionBehavior {
 
     override val id: Snowflake get() = data.id
@@ -81,19 +81,19 @@ class Command(val data: ApplicationCommandInteractionData) : Entity {
 
     val options
         get(): Map<String, OptionValue<*>> = data.options.orEmpty()
-            .filter { it.value !is Optional.Missing<*> }
-            .associate { it.name to it.value.value!! }
+                .filter { it.value !is Optional.Missing<*> }
+                .associate { it.name to it.value.value!! }
 
     val groups: Map<String, Group>
         get() = data.options.orEmpty()
-            .filter { it.subCommands.orEmpty().isNotEmpty() }
-            .associate { it.name to Group(it) }
+                .filter { it.subCommands.orEmpty().isNotEmpty() }
+                .associate { it.name to Group(it) }
 
 
     val subCommands: Map<String, SubCommand>
         get() = data.options.orEmpty()
-            .filter { it.values.orEmpty().isNotEmpty() }
-            .associate { it.name to SubCommand(it) }
+                .filter { it.values.orEmpty().isNotEmpty() }
+                .associate { it.name to SubCommand(it) }
 
 
 }
@@ -109,7 +109,7 @@ class Group(val data: OptionData) {
 
     val subCommands: Map<String, SubCommand>
         get() = data.subCommands.orEmpty()
-            .associate { it.name to SubCommand(OptionData(it.name, values = it.options)) }
+                .associate { it.name to SubCommand(OptionData(it.name, values = it.options)) }
 
 }
 
@@ -125,7 +125,7 @@ class SubCommand(val data: OptionData) {
 
     val options: Map<String, OptionValue<*>>
         get() = data.values.orEmpty()
-            .associate { it.name to it.value }
+                .associate { it.name to it.value }
 }
 
 

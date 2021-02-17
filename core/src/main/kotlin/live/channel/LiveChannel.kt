@@ -3,7 +3,6 @@ package dev.kord.core.live.channel
 import dev.kord.common.annotation.KordPreview
 import dev.kord.core.entity.channel.*
 import dev.kord.core.event.Event
-import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.event.channel.ChannelCreateEvent
 import dev.kord.core.event.channel.ChannelDeleteEvent
 import dev.kord.core.event.channel.ChannelUpdateEvent
@@ -11,6 +10,7 @@ import dev.kord.core.event.guild.GuildCreateEvent
 import dev.kord.core.event.guild.GuildDeleteEvent
 import dev.kord.core.event.guild.GuildUpdateEvent
 import dev.kord.core.event.message.*
+import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.live.AbstractLiveKordEntity
 
 @KordPreview

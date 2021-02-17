@@ -3,7 +3,6 @@
 package dev.kord.core.builder.kord
 
 import dev.kord.cache.api.DataCache
-import dev.kord.common.entity.Snowflake
 import dev.kord.common.ratelimit.BucketRateLimiter
 import dev.kord.core.ClientResources
 import dev.kord.core.Kord
@@ -41,8 +40,8 @@ import kotlin.concurrent.thread
 import kotlin.time.seconds
 
 operator fun DefaultGateway.Companion.invoke(
-    resources: ClientResources,
-    retry: Retry = LinearRetry(2.seconds, 60.seconds, 10)
+        resources: ClientResources,
+        retry: Retry = LinearRetry(2.seconds, 60.seconds, 10)
 ): DefaultGateway {
     return DefaultGateway {
         url = "wss://gateway.discord.gg/"
@@ -58,18 +57,18 @@ private val logger = KotlinLogging.logger { }
 class KordBuilder(val token: String) {
     private var shardRange: (recommended: Int) -> Iterable<Int> = { 0 until it }
     private var gatewayBuilder: (resources: ClientResources, shards: List<Int>) -> List<Gateway> =
-        { resources, shards ->
-            val rateLimiter = BucketRateLimiter(1, 5.seconds)
-            shards.map {
-                DefaultGateway {
-                    client = resources.httpClient
-                    identifyRateLimiter = rateLimiter
+            { resources, shards ->
+                val rateLimiter = BucketRateLimiter(1, 5.seconds)
+                shards.map {
+                    DefaultGateway {
+                        client = resources.httpClient
+                        identifyRateLimiter = rateLimiter
+                    }
                 }
             }
-        }
 
     private var handlerBuilder: (resources: ClientResources) -> RequestHandler =
-        { KtorRequestHandler(it.httpClient, ExclusionRequestRateLimiter()) }
+            { KtorRequestHandler(it.httpClient, ExclusionRequestRateLimiter()) }
     private var cacheBuilder: KordCacheBuilder.(resources: ClientResources) -> Unit = {}
 
     /**
@@ -84,7 +83,7 @@ class KordBuilder(val token: String) {
      * By default a [MutableSharedFlow] with an `extraBufferCapacity` of `Int.MAX_VALUE`.
      */
     var eventFlow: MutableSharedFlow<Event> = MutableSharedFlow(
-        extraBufferCapacity = Int.MAX_VALUE
+            extraBufferCapacity = Int.MAX_VALUE
     )
 
     /**
@@ -107,7 +106,6 @@ class KordBuilder(val token: String) {
      * The enabled gateway intents, setting intents to null will disable the feature.
      */
     var intents: Intents = Intents.nonPrivileged
-
 
 
     /**
@@ -228,8 +226,8 @@ class KordBuilder(val token: String) {
         val gateway = run {
             val gateways = buildMap<Int, Gateway> {
                 val gateways = gatewayBuilder(resources, shards)
-                    .map { CachingGateway(cache.createView(), it) }
-                    .onEach { it.registerKordData() }
+                        .map { CachingGateway(cache.createView(), it) }
+                        .onEach { it.registerKordData() }
 
                 shards.forEachIndexed { index, shard ->
                     put(shard, gateways[index])
@@ -249,13 +247,13 @@ class KordBuilder(val token: String) {
         }
 
         return Kord(
-            resources,
-            cache,
-            gateway,
-            rest,
-            self,
-            eventFlow,
-            defaultDispatcher
+                resources,
+                cache,
+                gateway,
+                rest,
+                self,
+                eventFlow,
+                defaultDispatcher
         )
     }
 

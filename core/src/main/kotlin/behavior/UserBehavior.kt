@@ -85,7 +85,7 @@ interface UserBehavior : KordEntity, Strategizable {
     suspend fun getDmChannelOrNull(): DmChannel? {
         return try {
             getDmChannel()
-        }catch (exception: RestRequestException){
+        } catch (exception: RestRequestException) {
             val code = exception.error?.code
             when {
                 code == JsonErrorCode.CannotSendMessagesToUser -> null
@@ -110,7 +110,7 @@ interface UserBehavior : KordEntity, Strategizable {
 
             override fun hashCode(): Int = Objects.hash(id)
 
-            override fun equals(other: Any?): Boolean = when(other) {
+            override fun equals(other: Any?): Boolean = when (other) {
                 is UserBehavior -> other.id == id
                 else -> false
             }

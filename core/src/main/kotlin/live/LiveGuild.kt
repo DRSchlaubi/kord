@@ -1,10 +1,10 @@
 package dev.kord.core.live
 
 import dev.kord.common.annotation.KordPreview
-import dev.kord.common.entity.optional.*
-import dev.kord.core.entity.KordEntity
+import dev.kord.common.entity.optional.map
 import dev.kord.core.entity.Guild
-import dev.kord.core.event.*
+import dev.kord.core.entity.KordEntity
+import dev.kord.core.event.Event
 import dev.kord.core.event.channel.ChannelCreateEvent
 import dev.kord.core.event.channel.ChannelDeleteEvent
 import dev.kord.core.event.channel.ChannelUpdateEvent

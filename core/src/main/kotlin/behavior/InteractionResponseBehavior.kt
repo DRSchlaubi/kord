@@ -22,16 +22,16 @@ interface InteractionResponseBehavior : KordObject {
 
     companion object {
         operator fun invoke(applicationId: Snowflake, token: String, kord: Kord) =
-            object : InteractionResponseBehavior {
-                override val applicationId: Snowflake
-                    get() = applicationId
+                object : InteractionResponseBehavior {
+                    override val applicationId: Snowflake
+                        get() = applicationId
 
-                override val token: String
-                    get() = token
+                    override val token: String
+                        get() = token
 
-                override val kord: Kord
-                    get() = kord
-            }
+                    override val kord: Kord
+                        get() = kord
+                }
     }
 }
 
@@ -44,16 +44,16 @@ interface EditableInteractionResponseBehavior : InteractionResponseBehavior {
 
     companion object {
         operator fun invoke(applicationId: Snowflake, token: String, kord: Kord) =
-            object : EditableInteractionResponseBehavior {
-                override val applicationId: Snowflake
-                    get() = applicationId
+                object : EditableInteractionResponseBehavior {
+                    override val applicationId: Snowflake
+                        get() = applicationId
 
-                override val token: String
-                    get() = token
+                    override val token: String
+                        get() = token
 
-                override val kord: Kord
-                    get() = kord
-            }
+                    override val kord: Kord
+                        get() = kord
+                }
     }
 
 }

@@ -16,29 +16,29 @@ import kotlinx.serialization.encoding.Encoder
 
 @KordPreview
 data class InteractionData(
-    val id: Snowflake,
-    val type: InteractionType,
-    val data: ApplicationCommandInteractionData,
-    val guildId: Snowflake,
-    val channelId: Snowflake,
-    val member: MemberData,
-    val token: String,
-    val permissions: Permissions,
-    val version: Int
+        val id: Snowflake,
+        val type: InteractionType,
+        val data: ApplicationCommandInteractionData,
+        val guildId: Snowflake,
+        val channelId: Snowflake,
+        val member: MemberData,
+        val token: String,
+        val permissions: Permissions,
+        val version: Int
 ) {
     companion object {
         fun from(event: InteractionCreate): InteractionData {
             return with(event.interaction) {
                 InteractionData(
-                    id,
-                    type,
-                    ApplicationCommandInteractionData.from(data),
-                    guildId,
-                    channelId,
-                    member.toData(member.user.value!!.id,guildId),
-                    token,
-                    member.permissions,
-                    version
+                        id,
+                        type,
+                        ApplicationCommandInteractionData.from(data),
+                        guildId,
+                        channelId,
+                        member.toData(member.user.value!!.id, guildId),
+                        token,
+                        member.permissions,
+                        version
                 )
             }
         }
@@ -48,17 +48,17 @@ data class InteractionData(
 @KordPreview
 @Serializable
 data class ApplicationCommandInteractionData(
-    val id: Snowflake,
-    val name: String,
-    val options: Optional<List<OptionData>> = Optional.Missing()
+        val id: Snowflake,
+        val name: String,
+        val options: Optional<List<OptionData>> = Optional.Missing()
 ) {
     companion object {
         fun from(data: DiscordApplicationCommandInteractionData): ApplicationCommandInteractionData {
             return with(data) {
                 ApplicationCommandInteractionData(
-                    id,
-                    name,
-                    options.mapList { OptionData.from(it) })
+                        id,
+                        name,
+                        options.mapList { OptionData.from(it) })
             }
         }
     }
@@ -75,7 +75,7 @@ data class OptionData(
 ) {
     companion object {
         fun from(data: Option): OptionData = with(data) {
-            when(data) {
+            when (data) {
                 is SubCommand -> OptionData(name, values = data.options)
                 is CommandArgument -> OptionData(name, value = Optional(data.value))
                 is CommandGroup -> OptionData(name, subCommands = data.options)
